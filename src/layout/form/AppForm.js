@@ -1,3 +1,4 @@
+import UserNameInput from "./components/UserNameInput";
 import EmailInput from "./components/EmailInput";
 import PasswordInput from "./components/PasswordInput";
 import GenderInput from "./components/GenderInput";
@@ -35,6 +36,7 @@ const AppForm = {
     );
   },
   SignUpForm: function ({
+    username,
     email,
     password,
     confPassword,
@@ -46,6 +48,7 @@ const AppForm = {
   }) {
     return (
       <SignUpForm
+        username={username}
         email={email}
         password={password}
         confPassword={confPassword}
@@ -54,6 +57,15 @@ const AppForm = {
         color={color}
         avatar={avatar}
         handleChange={handleChange}
+      />
+    );
+  },
+  UserNameInput: function ({ inputValue, handleChange, title }) {
+    return (
+      <UserNameInput
+        inputValue={inputValue}
+        handleChange={handleChange}
+        title={title}
       />
     );
   },

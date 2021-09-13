@@ -2,6 +2,7 @@ import AppForm from "../../../../layout/form/AppForm";
 import React, { useReducer } from "react";
 
 const initialState = {
+  username: "",
   gender: "",
   birthday: "",
   color: "",
@@ -10,6 +11,8 @@ const initialState = {
 
 const reducer = (state, action) => {
   switch (action.type) {
+    case "username":
+      return { ...state, username: action.value };
     case "gender":
       return { ...state, gender: action.value };
     case "birthday":
@@ -33,6 +36,11 @@ export default function EditUser() {
     <form className="row container col-11 col-lg-6 my-5 p-5" noValidate>
       <h3>Edit your user:</h3>
       <div className="col-6">
+        <AppForm.UserNameInput
+          inputValue={state.username}
+          handleChange={handleChange}
+          title="Username"
+        />
         <AppForm.GenderInput
           inputValue={state.gender}
           handleChange={handleChange}

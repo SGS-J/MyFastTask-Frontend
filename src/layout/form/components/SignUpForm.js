@@ -1,7 +1,8 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import AppForm from "../AppForm";
 
 export default function SignUpForm({
+  username,
   email,
   password,
   confPassword,
@@ -39,6 +40,11 @@ export default function SignUpForm({
           type="confirm"
           title="Confirm Password"
         />
+        <AppForm.UserNameInput
+          inputValue={username}
+          handleChange={handleChange}
+          title="How we name you?"
+        />
         <AppForm.GenderInput
           inputValue={gender}
           handleChange={handleChange}
@@ -51,15 +57,15 @@ export default function SignUpForm({
           handleChange={handleChange}
           title="Avatar"
         />
-        <AppForm.ColorInput
-          inputValue={color}
-          handleChange={handleChange}
-          title="Choose your favorite color:"
-        />
         <AppForm.BirthdayInput
           inputValue={birthday}
           handleChange={handleChange}
           title="Your birthday was:"
+        />
+        <AppForm.ColorInput
+          inputValue={color}
+          handleChange={handleChange}
+          title="Choose your favorite color:"
         />
       </div>
 

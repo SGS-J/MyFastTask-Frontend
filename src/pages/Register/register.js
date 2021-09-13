@@ -3,6 +3,7 @@ import AppForm from "./../../layout/form/AppForm";
 import DefaultAvatar from "./../../assets/default.png";
 
 const initialState = {
+  username: "",
   email: "",
   password: "",
   confPassword: "",
@@ -14,6 +15,8 @@ const initialState = {
 
 const reducer = (state, action) => {
   switch (action.type) {
+    case "username":
+      return { ...state, email: action.value };
     case "email":
       return { ...state, email: action.value };
     case "password":
@@ -50,6 +53,7 @@ export default function RegisterPage() {
   return (
     <main className="row justify-content-center form-page-main">
       <AppForm.SignUpForm
+        username={state.username}
         email={state.email}
         password={state.password}
         confPassword={state.confPassword}

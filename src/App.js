@@ -20,7 +20,7 @@ function App() {
           <Route exact path="/login">
             <LoginPage />
           </Route>
-          <Route path="/:user">
+          <Route path="user/:user">
             <UserPageRouter />
           </Route>
         </Switch>
