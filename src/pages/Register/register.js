@@ -1,4 +1,6 @@
 import React, { useReducer } from "react";
+import axios from "axios";
+
 import AppForm from "./../../layout/form/AppForm";
 import DefaultAvatar from "./../../assets/default.png";
 
@@ -6,7 +8,7 @@ const initialState = {
   username: "",
   email: "",
   password: "",
-  confPassword: "",
+  "conf-password": "",
   gender: "",
   birthday: new Date(),
   color: "#B80000",
@@ -16,7 +18,7 @@ const initialState = {
 const reducer = (state, action) => {
   switch (action.type) {
     case "username":
-      return { ...state, email: action.value };
+      return { ...state, username: action.value };
     case "email":
       return { ...state, email: action.value };
     case "password":
@@ -24,10 +26,10 @@ const reducer = (state, action) => {
         ...state,
         password: action.value,
       };
-    case "confirm-password":
+    case "conf-password":
       return {
         ...state,
-        confPassword: action.value,
+        "conf-password": action.value,
       };
     case "gender":
       return { ...state, gender: action.value };
@@ -50,6 +52,25 @@ export default function RegisterPage() {
     dispatch({ type, value });
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const fd = new FormData();
+    for (const stateKey in state) {
+      if (stateKey === "avatar") {
+        const res = await fetch(state[stateKey]);
+        const file = await res.blob();
+        fd.append(stateKey, file);
+      } else {
+        fd.append(stateKey, state[stateKey]);
+      }
+    }
+    await axios.post(`/user/register`, fd, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+  };
+
   return (
     <main className="row justify-content-center form-page-main">
       <AppForm.SignUpForm
@@ -62,6 +83,7 @@ export default function RegisterPage() {
         color={state.color}
         avatar={state.avatar}
         handleChange={handleChange}
+        handleSubmit={handleSubmit}
       />
     </main>
   );

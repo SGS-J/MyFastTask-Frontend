@@ -45,6 +45,7 @@ const AppForm = {
     color,
     avatar,
     handleChange,
+    handleSubmit,
   }) {
     return (
       <SignUpForm
@@ -57,6 +58,7 @@ const AppForm = {
         color={color}
         avatar={avatar}
         handleChange={handleChange}
+        handleSubmit={handleSubmit}
       />
     );
   },
@@ -78,13 +80,20 @@ const AppForm = {
       />
     );
   },
-  PasswordInput: function ({ inputValue, handleChange, type, title }) {
+  PasswordInput: function ({
+    inputValue,
+    handleChange,
+    type,
+    title,
+    targetConfirm,
+  }) {
     return (
       <PasswordInput
         inputValue={inputValue}
         handleChange={handleChange}
         type={type}
         title={title}
+        targetConfirm={targetConfirm}
       />
     );
   },

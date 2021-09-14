@@ -13,6 +13,7 @@ export default function BirthdayInput({ inputValue, handleChange, title }) {
         <DatePicker
           selected={inputValue}
           onChange={(date) => handleChange("birthday", date)}
+          dateFormat="dd/MM/yyyy"
         />
       </div>
     </div>

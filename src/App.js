@@ -14,10 +14,10 @@ function App() {
           <Route exact path="/">
             <HomePage />
           </Route>
-          <Route exact path="/register">
+          <Route exact path="/user/register">
             <RegisterPage />
           </Route>
-          <Route exact path="/login">
+          <Route exact path="/user/login">
             <LoginPage />
           </Route>
           <Route path="user/:user">

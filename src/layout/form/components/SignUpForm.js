@@ -11,6 +11,7 @@ export default function SignUpForm({
   color,
   avatar,
   handleChange,
+  handleSubmit,
 }) {
   useEffect(() => {
     AppForm.disableInvalidFormDefault();
@@ -20,6 +21,7 @@ export default function SignUpForm({
     <form
       className="needs-validation row container bg-white rounded-1 shadow col-11 col-lg-6 my-5 p-5"
       noValidate
+      onSubmit={handleSubmit}
     >
       <h1 className="col-12 mb-3">REGISTER</h1>
       <div className="col-12 col-lg-6">
@@ -39,6 +41,7 @@ export default function SignUpForm({
           handleChange={handleChange}
           type="confirm"
           title="Confirm Password"
+          targetConfirm={password}
         />
         <AppForm.UserNameInput
           inputValue={username}
@@ -70,9 +73,7 @@ export default function SignUpForm({
       </div>
 
       <div className="col-6 col-lg-2">
-        <button type="submit" className="btn btn-danger">
-          Submit
-        </button>
+        <input type="submit" className="btn btn-danger" value="Submit" />
       </div>
     </form>
   );

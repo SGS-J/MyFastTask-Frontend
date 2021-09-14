@@ -11,6 +11,7 @@ export default function UserNameInput({ inputValue, handleChange, title }) {
         value={inputValue}
         onChange={(e) => handleChange(e.target.name, e.target.value)}
         required
+        pattern="^\w{3,}$"
       />
       <div className="invalid-tooltip">
         Username must have at least 3 characters
