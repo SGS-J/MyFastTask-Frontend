@@ -1,16 +1,16 @@
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
-function NavbarNotLogged() {
+function NavbarNotLogged({ path }) {
   return (
     <div className="collapse navbar-collapse" id="navbarNav">
       <ul className="navbar-nav">
         <li className="nav-item">
-          <a className="nav-link" href="/login">
+          <a className="nav-link" href={`${path}/login`}>
             Log In
           </a>
         </li>
         <li className="nav-item">
-          <a className="nav-link" href="/register">
+          <a className="nav-link" href={`${path}/register`}>
             Sign Up
           </a>
         </li>
@@ -19,22 +19,22 @@ function NavbarNotLogged() {
   );
 }
 
-function NavbarLogged() {
+function NavbarLogged({ path }) {
   return (
     <div className="collapse navbar-collapse" id="navbarNav">
       <ul className="navbar-nav">
         <li className="nav-item">
-          <a className="nav-link" href="me">
+          <a className="nav-link" href={`${path}/me`}>
             Me
           </a>
         </li>
         <li className="nav-item">
-          <a className="nav-link" href="tasks">
+          <a className="nav-link" href={`${path}/tasks`}>
             Tasks
           </a>
         </li>
         <li className="nav-item">
-          <a className="nav-link" href="config">
+          <a className="nav-link" href={`${path}/config`}>
             Configuration
           </a>
         </li>
@@ -61,9 +61,13 @@ export default function Navigation() {
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
-          <span className="navbar-toggler-icon"></span>
+          <span className="navbar-toggler-icon" />
         </button>
-        {regex.test(location.pathname) ? <NavbarLogged /> : <NavbarNotLogged />}
+        {regex.test(location.pathname) ? (
+          <NavbarLogged path="/user" />
+        ) : (
+          <NavbarNotLogged path="/user" />
+        )}
       </div>
     </nav>
   );

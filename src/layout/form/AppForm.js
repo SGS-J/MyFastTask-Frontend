@@ -5,8 +5,6 @@ import GenderInput from "./components/GenderInput";
 import BirthdayInput from "./components/BirthdayInput";
 import ColorInput from "./components/ColorInput";
 import ImageInput from "./components/ImageInput/ImageInput";
-import LogInForm from "./components/LogInForm";
-import SignUpForm from "./components/SignUpForm";
 
 const AppForm = {
   disableInvalidFormDefault: function () {
@@ -25,42 +23,6 @@ const AppForm = {
         false
       );
     });
-  },
-  LogInForm: function ({ email, password, handleChange }) {
-    return (
-      <LogInForm
-        email={email}
-        password={password}
-        handleChange={handleChange}
-      />
-    );
-  },
-  SignUpForm: function ({
-    username,
-    email,
-    password,
-    confPassword,
-    gender,
-    birthday,
-    color,
-    avatar,
-    handleChange,
-    handleSubmit,
-  }) {
-    return (
-      <SignUpForm
-        username={username}
-        email={email}
-        password={password}
-        confPassword={confPassword}
-        gender={gender}
-        birthday={birthday}
-        color={color}
-        avatar={avatar}
-        handleChange={handleChange}
-        handleSubmit={handleSubmit}
-      />
-    );
   },
   UserNameInput: function ({ inputValue, handleChange, title }) {
     return (
