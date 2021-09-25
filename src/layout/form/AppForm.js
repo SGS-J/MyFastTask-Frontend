@@ -33,12 +33,13 @@ const AppForm = {
       />
     );
   },
-  EmailInput: function ({ inputValue, handleChange, title }) {
+  EmailInput: function ({ inputValue, handleChange, title, emailInUse }) {
     return (
       <EmailInput
         inputValue={inputValue}
         handleChange={handleChange}
         title={title}
+        emailInUse={emailInUse}
       />
     );
   },

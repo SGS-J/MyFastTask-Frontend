@@ -7,7 +7,7 @@ import "@fortawesome/fontawesome-free/css/all.css";
 import axios from "axios";
 import bootstrap from "bootstrap";
 
-axios.defaults.baseURL = `http://${process.env.REACT_APP_API_HOST}`;
+axios.defaults.baseURL = process.env.REACT_APP_API_HOST;
 
 ReactDOM.render(
   <React.StrictMode>

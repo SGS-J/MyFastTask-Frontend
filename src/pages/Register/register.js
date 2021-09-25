@@ -13,6 +13,7 @@ const initialState = {
   birthday: new Date(),
   color: "#B80000",
   avatar: DefaultAvatar,
+  emailInUse: false,
 };
 
 const reducer = (state, action) => {
@@ -20,7 +21,7 @@ const reducer = (state, action) => {
     case "username":
       return { ...state, username: action.value };
     case "email":
-      return { ...state, email: action.value };
+      return { ...state, email: action.value, emailInUse: false };
     case "password":
       return {
         ...state,
@@ -39,6 +40,8 @@ const reducer = (state, action) => {
       return { ...state, color: action.value };
     case "avatar":
       return { ...state, avatar: action.value };
+    case "emailInUse":
+      return { ...state, emailInUse: action.value };
 
     default:
       throw new Error();
@@ -56,6 +59,7 @@ export default function RegisterPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const fd = new FormData();
+
     for (const stateKey in state) {
       if (stateKey === "avatar") {
         const res = await fetch(state[stateKey]);
@@ -65,14 +69,18 @@ export default function RegisterPage() {
         fd.append(stateKey, state[stateKey]);
       }
     }
-    await axios
+
+    axios
       .post(`/user/register`, fd, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       })
-      .then((res) => {
-        console.log(res.status);
+      .catch(({response: res}) => {
+        const {errors}= res.data
+        if(Object.values(errors[0]).includes(state.email)){
+          dispatch({type: "emailInUse", value: true})
+        }
       });
   };
 
@@ -88,12 +96,12 @@ export default function RegisterPage() {
         onSubmit={handleSubmit}
       >
         <h1 className="col-12 mb-3">REGISTER</h1>
-        <div className="col-12 col-lg-6">
+        <div className="has-validation col-12 col-lg-6">
           <AppForm.EmailInput
             inputValue={state.email}
             handleChange={handleChange}
             title="Email Address"
-            emailInUse={emailInUse}
+            emailInUse={state.emailInUse}
           />
           <AppForm.PasswordInput
             inputValue={state.password}

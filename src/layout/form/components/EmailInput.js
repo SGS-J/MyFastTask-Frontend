@@ -16,8 +16,9 @@ export default function EmailInput({
         value={inputValue}
         onChange={(e) => handleChange(e.target.name, e.target.value)}
         required
+        aria-describedby="invalid-feedback-email"
       />
-      <div className="invalid-tooltip">
+      <div id="invalid-feedback-email" className="invalid-tooltip">
         {emailInUse ? toolTipEmailInUse : toolTipInvalidValue}
       </div>
     </div>
