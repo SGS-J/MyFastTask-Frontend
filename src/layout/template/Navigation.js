@@ -1,4 +1,5 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useHistory, useParams } from "react-router-dom";
+import axios from "axios";
 
 function NavbarNotLogged({ path }) {
   return (
@@ -19,7 +20,7 @@ function NavbarNotLogged({ path }) {
   );
 }
 
-function NavbarLogged({ path }) {
+function NavbarLogged({ logoutUser, path }) {
   return (
     <div className="collapse navbar-collapse" id="navbarNav">
       <ul className="navbar-nav">
@@ -38,14 +39,26 @@ function NavbarLogged({ path }) {
             Configuration
           </a>
         </li>
+        <li className="nav-item">
+          <a className="nav-link" onClick={logoutUser}>
+            Log out
+          </a>
+        </li>
       </ul>
     </div>
   );
 }
 
 export default function Navigation() {
-  const location = useLocation();
-  const regex = /\/\w+\/(me|config|tasks)/;
+  const { user } = useParams();
+  const history = useHistory();
+  const loc = useLocation();
+
+  const logoutUser = async () => {
+    await axios.post(`/user/${user}/logout`);
+    history.push("/user/login");
+  };
+
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-danger">
       <div className="container-fluid">
@@ -63,8 +76,8 @@ export default function Navigation() {
         >
           <span className="navbar-toggler-icon" />
         </button>
-        {regex.test(location.pathname) ? (
-          <NavbarLogged path="/user" />
+        {user ? (
+          <NavbarLogged logoutUser={logoutUser} path="/user" />
         ) : (
           <NavbarNotLogged path="/user" />
         )}

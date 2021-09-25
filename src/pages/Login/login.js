@@ -1,6 +1,7 @@
 import React, { useEffect, useReducer } from "react";
 import AppForm from "./../../layout/form/AppForm";
 import axios from "axios";
+import { useHistory } from "react-router-dom";
 
 const initialState = {
   email: "",
@@ -18,14 +19,24 @@ const reducer = (state, action) => {
   }
 };
 
-export default function LoginPage() {
+export default function LoginPage({ submitUser }) {
   const [state, dispatch] = useReducer(reducer, initialState);
+  const history = useHistory();
+
   const handleChange = (type, value) => {
-    dispatch(type, value);
+    dispatch({ type, value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    try {
+      const res = await axios.post("/user/login", state);
+      const { userLogged } = res.data;
+      submitUser(userLogged);
+      history.push(`/user/${userLogged}/me`);
+    } catch (err) {
+      alert("Incorrect user or password!");
+    }
   };
 
   useEffect(() => {
@@ -40,6 +51,7 @@ export default function LoginPage() {
       >
         <h1 className="mb-3">LOG IN</h1>
         <AppForm.EmailInput
+          title="Email Address"
           inputValue={state.email}
           handleChange={handleChange}
         />

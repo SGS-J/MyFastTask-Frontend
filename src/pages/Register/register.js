@@ -1,5 +1,6 @@
 import React, { useEffect, useReducer, useState } from "react";
 import axios from "axios";
+import { useHistory } from "react-router-dom";
 
 import AppForm from "./../../layout/form/AppForm";
 import DefaultAvatar from "./../../assets/default.png";
@@ -51,6 +52,7 @@ const reducer = (state, action) => {
 export default function RegisterPage() {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [emailInUse, setEmailInUse] = useState(false);
+  const history = useHistory();
 
   const handleChange = (type, value) => {
     dispatch({ type, value });
@@ -70,18 +72,19 @@ export default function RegisterPage() {
       }
     }
 
-    axios
-      .post(`/user/register`, fd, {
+    try {
+      await axios.post(`/user/register`, fd, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
-      })
-      .catch(({response: res}) => {
-        const {errors}= res.data
-        if(Object.values(errors[0]).includes(state.email)){
-          dispatch({type: "emailInUse", value: true})
-        }
       });
+      history.push("/user/login");
+    } catch ({ response }) {
+      const { errors } = response.data;
+      if (Object.values(errors[0]).includes(state.email)) {
+        dispatch({ type: "emailInUse", value: true });
+      }
+    }
   };
 
   useEffect(() => {
