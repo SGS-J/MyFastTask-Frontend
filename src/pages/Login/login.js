@@ -31,6 +31,7 @@ export default function LoginPage({ submitUser }) {
     e.preventDefault();
     try {
       const res = await axios.post("/user/login", state);
+      console.log(res);
       const { userLogged } = res.data;
       submitUser(userLogged);
       history.push(`/user/${userLogged}/me`);

@@ -1,17 +1,16 @@
-import { useLocation, useHistory, useParams } from "react-router-dom";
 import axios from "axios";
 
-function NavbarNotLogged({ path }) {
+function NavbarNotLogged() {
   return (
     <div className="collapse navbar-collapse" id="navbarNav">
       <ul className="navbar-nav">
         <li className="nav-item">
-          <a className="nav-link" href={`${path}/login`}>
+          <a className="nav-link" href="/user/login">
             Log In
           </a>
         </li>
         <li className="nav-item">
-          <a className="nav-link" href={`${path}/register`}>
+          <a className="nav-link" href="/user/register">
             Sign Up
           </a>
         </li>
@@ -20,27 +19,27 @@ function NavbarNotLogged({ path }) {
   );
 }
 
-function NavbarLogged({ logoutUser, path }) {
+function NavbarLogged({ logoutUser, userLogged }) {
   return (
     <div className="collapse navbar-collapse" id="navbarNav">
       <ul className="navbar-nav">
         <li className="nav-item">
-          <a className="nav-link" href={`${path}/me`}>
+          <a className="nav-link" href={`/user/${userLogged}/me`}>
             Me
           </a>
         </li>
         <li className="nav-item">
-          <a className="nav-link" href={`${path}/tasks`}>
+          <a className="nav-link" href={`/user/${userLogged}/tasks`}>
             Tasks
           </a>
         </li>
         <li className="nav-item">
-          <a className="nav-link" href={`${path}/config`}>
+          <a className="nav-link" href={`/user/${userLogged}/config`}>
             Configuration
           </a>
         </li>
         <li className="nav-item">
-          <a className="nav-link" onClick={logoutUser}>
+          <a className="nav-link" href="/user/login" onClick={logoutUser}>
             Log out
           </a>
         </li>
@@ -49,14 +48,10 @@ function NavbarLogged({ logoutUser, path }) {
   );
 }
 
-export default function Navigation() {
-  const { user } = useParams();
-  const history = useHistory();
-  const loc = useLocation();
-
+export default function Navigation({ userLogged, submitUser }) {
   const logoutUser = async () => {
-    await axios.post(`/user/${user}/logout`);
-    history.push("/user/login");
+    await axios.post(`/user/${userLogged}/logout`);
+    submitUser("");
   };
 
   return (
@@ -76,10 +71,10 @@ export default function Navigation() {
         >
           <span className="navbar-toggler-icon" />
         </button>
-        {user ? (
-          <NavbarLogged logoutUser={logoutUser} path="/user" />
+        {userLogged ? (
+          <NavbarLogged logoutUser={logoutUser} userLogged={userLogged} />
         ) : (
-          <NavbarNotLogged path="/user" />
+          <NavbarNotLogged />
         )}
       </div>
     </nav>

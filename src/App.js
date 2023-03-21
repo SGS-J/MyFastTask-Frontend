@@ -6,7 +6,7 @@ import Navigation from "./layout/template/Navigation";
 import UserPageRouter from "./pages/UserPage/UserPageRouter";
 import {
   BrowserRouter as Router,
-  Switch,
+  Routes,
   Route,
   Redirect,
 } from "react-router-dom";
@@ -21,33 +21,17 @@ function App() {
   return (
     <>
       <Router>
-        <Navigation />
-        <Switch>
-          <Route exact path="/">
-            {userLogged ? (
-              <Redirect to={`/user/${userLogged}/me`} />
-            ) : (
-              <HomePage />
-            )}
-          </Route>
-          <Route exact path="/user/register">
-            {userLogged ? (
-              <Redirect to={`/user/${userLogged}/me`} />
-            ) : (
-              <RegisterPage />
-            )}
-          </Route>
-          <Route exact path="/user/login">
-            {userLogged ? (
-              <Redirect to={`/user/${userLogged}/me`} />
-            ) : (
-              <LoginPage submitUser={submitUser} />
-            )}
-          </Route>
-          <Route path="user/:user">
-            {userLogged ? <UserPageRouter /> : <Redirect to="/user/login" />}
-          </Route>
-        </Switch>
+        <Navigation userLogged={userLogged} submitUser={submitUser} />
+        <Routes>
+          <Route exact path="/" element={<HomePage />} />
+          <Route exact path="/user/register" element={<RegisterPage />} />
+          <Route
+            exact
+            path="/user/login"
+            element={<LoginPage submitUser={submitUser} />}
+          />
+          <Route path="/user/:user" element={<UserPageRouter />} />
+        </Routes>
       </Router>
     </>
   );
