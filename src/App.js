@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import HomePage from "./pages/Home/home";
 import LoginPage from "./pages/Login/login";
 import RegisterPage from "./pages/Register/register";
@@ -8,7 +8,7 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
-  Redirect,
+  redirect,
 } from "react-router-dom";
 
 function App() {
@@ -17,6 +17,11 @@ function App() {
   const submitUser = (user) => {
     setUserLogged(user);
   };
+
+  useEffect(() => {
+    if (userLogged) redirect("/user/:user/me");
+    else redirect("/user/login");
+  }, []);
 
   return (
     <>

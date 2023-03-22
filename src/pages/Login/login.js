@@ -1,7 +1,7 @@
 import React, { useEffect, useReducer } from "react";
 import AppForm from "./../../layout/form/AppForm";
 import axios from "axios";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const initialState = {
   email: "",
@@ -21,7 +21,7 @@ const reducer = (state, action) => {
 
 export default function LoginPage({ submitUser }) {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const handleChange = (type, value) => {
     dispatch({ type, value });
@@ -34,7 +34,7 @@ export default function LoginPage({ submitUser }) {
       console.log(res);
       const { userLogged } = res.data;
       submitUser(userLogged);
-      history.push(`/user/${userLogged}/me`);
+      navigate(`/user/${userLogged}/me`);
     } catch (err) {
       alert("Incorrect user or password!");
     }

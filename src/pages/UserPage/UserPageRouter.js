@@ -1,21 +1,16 @@
 import MePage from "./Me/me";
 import TasksPage from "./Tasks/tasks";
 import ConfigPage from "./Config/config";
-import { Switch, Route, useRouteMatch } from "react-router-dom";
+import { Routes, Route, useParams } from "react-router-dom";
 
 export default function UserPageRouter() {
-  const { path } = useRouteMatch();
+  const { user } = useParams();
+  console.log(user);
   return (
-    <Switch>
-      <Route path={`${path}/me`}>
-        <MePage />
-      </Route>
-      <Route path={`${path}/tasks`}>
-        <TasksPage />
-      </Route>
-      <Route path={`${path}/config`}>
-        <ConfigPage />
-      </Route>
-    </Switch>
+    <Routes>
+      <Route path={`${user}/me`} element={<MePage />} />
+      <Route path={`${user}/tasks`} element={<TasksPage />} />
+      <Route path={`${user}/config`} element={<ConfigPage />} />
+    </Routes>
   );
 }

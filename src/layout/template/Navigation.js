@@ -50,7 +50,7 @@ function NavbarLogged({ logoutUser, userLogged }) {
 
 export default function Navigation({ userLogged, submitUser }) {
   const logoutUser = async () => {
-    await axios.post(`/user/${userLogged}/logout`);
+    await axios.post("/user/logout");
     submitUser("");
   };
 

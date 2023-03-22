@@ -1,6 +1,6 @@
 import React, { useEffect, useReducer, useState } from "react";
 import axios from "axios";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import AppForm from "./../../layout/form/AppForm";
 import DefaultAvatar from "./../../assets/default.png";
@@ -52,7 +52,7 @@ const reducer = (state, action) => {
 export default function RegisterPage() {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [emailInUse, setEmailInUse] = useState(false);
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const handleChange = (type, value) => {
     dispatch({ type, value });
@@ -78,7 +78,7 @@ export default function RegisterPage() {
           "Content-Type": "multipart/form-data",
         },
       });
-      history.push("/user/login");
+      navigate("/user/login");
     } catch ({ response }) {
       const { errors } = response.data;
       if (Object.values(errors[0]).includes(state.email)) {
