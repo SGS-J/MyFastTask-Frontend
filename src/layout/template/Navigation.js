@@ -1,48 +1,49 @@
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, NavLink, useParams } from "react-router-dom";
 
 function NavbarNotLogged() {
   return (
     <div className="collapse navbar-collapse" id="navbarNav">
       <ul className="navbar-nav">
         <li className="nav-item">
-          <Link className="nav-link" to="/user/login">
+          <NavLink className="nav-link" to="/login">
             Log In
-          </Link>
+          </NavLink>
         </li>
         <li className="nav-item">
-          <Link className="nav-link" to="/user/register">
+          <NavLink className="nav-link" to="/register">
             Sign Up
-          </Link>
+          </NavLink>
         </li>
       </ul>
     </div>
   );
 }
 
-function NavbarLogged({ logoutUser }) {
+function NavbarLogged({ logoutUser, userLogged }) {
+  const baseUrl = String("/user/" + userLogged);
   return (
     <div className="collapse navbar-collapse" id="navbarNav">
       <ul className="navbar-nav">
         <li className="nav-item">
-          <Link className="nav-link" to="/user/:user/me">
+          <NavLink className="nav-link" to={`${baseUrl}/me`}>
             Me
-          </Link>
+          </NavLink>
         </li>
         <li className="nav-item">
-          <Link className="nav-link" to="/user/:user/tasks">
+          <NavLink className="nav-link" to={`${baseUrl}/tasks`}>
             Tasks
-          </Link>
+          </NavLink>
         </li>
         <li className="nav-item">
-          <Link className="nav-link" to="/user/:user/config">
+          <NavLink className="nav-link" to={`${baseUrl}/config`}>
             Configuration
-          </Link>
+          </NavLink>
         </li>
         <li className="nav-item">
-          <Link className="nav-link" to="/user/login" onClick={logoutUser}>
+          <NavLink className="nav-link" to="/login" onClick={logoutUser}>
             Log Out
-          </Link>
+          </NavLink>
         </li>
       </ul>
     </div>
@@ -58,9 +59,9 @@ export default function Navigation({ userLogged, submitUser }) {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-danger">
       <div className="container-fluid">
-        <Link className="navbar-brand" to="/">
+        <NavLink className="navbar-brand" to="/">
           MyFastTask
-        </Link>
+        </NavLink>
 
         <button
           className="navbar-toggler"
@@ -74,7 +75,7 @@ export default function Navigation({ userLogged, submitUser }) {
           <span className="navbar-toggler-icon" />
         </button>
         {userLogged ? (
-          <NavbarLogged logoutUser={logoutUser} />
+          <NavbarLogged logoutUser={logoutUser} userLogged={userLogged} />
         ) : (
           <NavbarNotLogged />
         )}
