@@ -6,6 +6,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "@fortawesome/fontawesome-free/css/all.css";
 import axios from "axios";
 import bootstrap from "bootstrap";
+import { BrowserRouter } from "react-router-dom";
 
 axios.defaults.baseURL = process.env.REACT_APP_API_HOST;
 
@@ -14,6 +15,8 @@ const root = ReactDOMClient.createRoot(container);
 
 root.render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </React.StrictMode>
 );

@@ -6,17 +6,26 @@ import Navigation from "./layout/template/Navigation";
 import MePage from "./pages/UserPage/Me/me";
 import TasksPage from "./pages/UserPage/Tasks/tasks";
 import ConfigPage from "./pages/UserPage/Config/config";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 
 function App() {
   const [userLogged, setUserLogged] = useState("");
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const submitUser = (user) => {
     setUserLogged(user);
   };
 
+  useEffect(() => {
+    console.log(location);
+    if (!userLogged) navigate("/login");
+    else if (!location.pathname.includes("user"))
+      navigate("/user/" + userLogged + "/me");
+  }, [userLogged]);
+
   return (
-    <Router>
+    <>
       <Navigation userLogged={userLogged} submitUser={submitUser} />
       <Routes>
         <Route index exact path="/" element={<HomePage />} />
@@ -32,7 +41,7 @@ function App() {
           element={<LoginPage submitUser={submitUser} />}
         />
       </Routes>
-    </Router>
+    </>
   );
 }
 
