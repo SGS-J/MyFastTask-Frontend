@@ -1,47 +1,48 @@
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 function NavbarNotLogged() {
   return (
     <div className="collapse navbar-collapse" id="navbarNav">
       <ul className="navbar-nav">
         <li className="nav-item">
-          <a className="nav-link" href="/user/login">
+          <Link className="nav-link" to="/user/login">
             Log In
-          </a>
+          </Link>
         </li>
         <li className="nav-item">
-          <a className="nav-link" href="/user/register">
+          <Link className="nav-link" to="/user/register">
             Sign Up
-          </a>
+          </Link>
         </li>
       </ul>
     </div>
   );
 }
 
-function NavbarLogged({ logoutUser, userLogged }) {
+function NavbarLogged({ logoutUser }) {
   return (
     <div className="collapse navbar-collapse" id="navbarNav">
       <ul className="navbar-nav">
         <li className="nav-item">
-          <a className="nav-link" href={`/user/${userLogged}/me`}>
+          <Link className="nav-link" to="/user/:user/me">
             Me
-          </a>
+          </Link>
         </li>
         <li className="nav-item">
-          <a className="nav-link" href={`/user/${userLogged}/tasks`}>
+          <Link className="nav-link" to="/user/:user/tasks">
             Tasks
-          </a>
+          </Link>
         </li>
         <li className="nav-item">
-          <a className="nav-link" href={`/user/${userLogged}/config`}>
+          <Link className="nav-link" to="/user/:user/config">
             Configuration
-          </a>
+          </Link>
         </li>
         <li className="nav-item">
-          <a className="nav-link" href="/user/login" onClick={logoutUser}>
-            Log out
-          </a>
+          <Link className="nav-link" to="/user/login" onClick={logoutUser}>
+            Log Out
+          </Link>
         </li>
       </ul>
     </div>
@@ -57,9 +58,10 @@ export default function Navigation({ userLogged, submitUser }) {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-danger">
       <div className="container-fluid">
-        <a className="navbar-brand" href="/">
+        <Link className="navbar-brand" to="/">
           MyFastTask
-        </a>
+        </Link>
+
         <button
           className="navbar-toggler"
           type="button"
@@ -72,7 +74,7 @@ export default function Navigation({ userLogged, submitUser }) {
           <span className="navbar-toggler-icon" />
         </button>
         {userLogged ? (
-          <NavbarLogged logoutUser={logoutUser} userLogged={userLogged} />
+          <NavbarLogged logoutUser={logoutUser} />
         ) : (
           <NavbarNotLogged />
         )}
