@@ -1,32 +1,26 @@
 {
-    // Use IntelliSense to learn about possible attributes.
-    // Hover to view descriptions of existing attributes.
-    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
-    "version": "0.2.0",
-    "configurations": [
-        {
-            "name": "NPM",
-            "request": "launch",
-            "runtimeArgs": [
-                "run-script",
-                "start"
-            ],
-            "runtimeExecutable": "npm",
-            "skipFiles": [
-                "<node_internals>/**"
-            ],
-            "type": "node",
-            "localRoot": "${workspaceFolder}",
-            "remoteRoot": "/"
-        },
-         { 
-            "type": "node",
-            "request": "launch",
-            "name": "Launch Program",
-            "skipFiles": [
-                "<node_internals>/**"
-            ],
-            "program": "${workspaceFolder}\\src\\pages\\UserPage\\UserPageRouter.js"
-        }
-    ]
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug React App",
+      "type": "msedge",
+      "request": "launch",
+      "url": "http://localhost:3000",
+      "webRoot": "${workspaceFolder}/src",
+      "sourceMapPathOverrides": {
+        "webpack:///src/*": "${webRoot}/*"
+      },
+      "browserExecutable": "C:\\Users\\santi\\AppData\\Local\\Vivaldi\\Application\\vivaldi.exe"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Launch Program",
+      "skipFiles": ["<node_internals>/**"],
+      "program": "${workspaceFolder}\\src\\pages\\UserPage\\UserPageRouter.js"
+    }
+  ]
 }
