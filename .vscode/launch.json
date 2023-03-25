@@ -6,7 +6,7 @@
   "configurations": [
     {
       "name": "Debug React App",
-      "type": "msedge",
+      "type": "pwa-msedge",
       "request": "launch",
       "url": "http://localhost:3000",
       "webRoot": "${workspaceFolder}/src",

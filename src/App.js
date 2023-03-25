@@ -27,28 +27,40 @@ function App() {
     setUserLogged(user);
   };
 
-  useEffect(() => {
-    const isAtUserPath = location.pathname.includes("user");
-    if (!userLogged && isAtUserPath) navigate("/login");
-    else if (userLogged && !isAtUserPath) navigate(`/user/${userLogged}/me`);
-  }, [userLogged, navigate, location]);
-
   return (
     <>
       <Navigation userLogged={userLogged} submitUser={submitUser} />
       <Routes>
-        <Route index exact path="/" element={<HomePage />} />
-        <Route path="/user/:user">
-          <Route path="me" element={<MePage />} />
-          <Route path="tasks" element={<TasksPage />} />
-          <Route path="config" element={<ConfigPage />} />
+        <Route path="/" element={<HomePage />}>
+          <Route
+            path="user/:user"
+            element={!userLogged && <Navigate replace to="/login" />}
+          >
+            <Route path="me" element={<MePage />} />
+            <Route path="tasks" element={<TasksPage />} />
+            <Route path="config" element={<ConfigPage />} />
+          </Route>
+          <Route
+            path="register"
+            element={
+              userLogged ? (
+                <Navigate replace to={redirectPaths.whenAuth} />
+              ) : (
+                <RegisterPage />
+              )
+            }
+          />
+          <Route
+            path="login"
+            element={
+              userLogged ? (
+                <Navigate replace to={redirectPaths.whenAuth} />
+              ) : (
+                <LoginPage submitUser={submitUser} />
+              )
+            }
+          />
         </Route>
-        <Route exact path="/register" element={<RegisterPage />} />
-        <Route
-          exact
-          path="/login"
-          element={<LoginPage submitUser={submitUser} />}
-        />
       </Routes>
     </>
   );
