@@ -31,36 +31,35 @@ function App() {
     <>
       <Navigation userLogged={userLogged} submitUser={submitUser} />
       <Routes>
-        <Route path="/" element={<HomePage />}>
-          <Route
-            path="user/:user"
-            element={!userLogged && <Navigate replace to="/login" />}
-          >
-            <Route path="me" element={<MePage />} />
-            <Route path="tasks" element={<TasksPage />} />
-            <Route path="config" element={<ConfigPage />} />
-          </Route>
-          <Route
-            path="register"
-            element={
-              userLogged ? (
-                <Navigate replace to={redirectPaths.whenAuth} />
-              ) : (
-                <RegisterPage />
-              )
-            }
-          />
-          <Route
-            path="login"
-            element={
-              userLogged ? (
-                <Navigate replace to={redirectPaths.whenAuth} />
-              ) : (
-                <LoginPage submitUser={submitUser} />
-              )
-            }
-          />
+        <Route path="/" element={<HomePage />} />
+        <Route
+          path="user/:user"
+          element={!userLogged && <Navigate replace to="/login" />}
+        >
+          <Route path="me" element={<MePage />} />
+          <Route path="tasks" element={<TasksPage />} />
+          <Route path="config" element={<ConfigPage />} />
         </Route>
+        <Route
+          path="register"
+          element={
+            userLogged ? (
+              <Navigate replace to={redirectPaths.whenAuth} />
+            ) : (
+              <RegisterPage />
+            )
+          }
+        />
+        <Route
+          path="login"
+          element={
+            userLogged ? (
+              <Navigate replace to={redirectPaths.whenAuth} />
+            ) : (
+              <LoginPage submitUser={submitUser} />
+            )
+          }
+        />
       </Routes>
     </>
   );
